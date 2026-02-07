@@ -1,6 +1,7 @@
 import { fetchWithAuth } from 'js/authToken';
 import API_BASE_URL from 'js/urlHelper';
 import { handleResponse } from 'utilities/Responses/handleResponse';
+import axios from 'axios';
 
 const BASE_URL = `${API_BASE_URL}/api/proyecto`;
 
@@ -12,6 +13,21 @@ export const index = async (page = 1, filters = {}) => {
   });
   const response = await fetchWithAuth(`${BASE_URL}/index?${params.toString()}`, { method: 'GET' });
   return handleResponse(response);
+};
+
+export const indexLanding = async (page = 1) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/index`, {
+      params: {
+        page: page,
+        estado: 1,
+      }
+    });
+    return response.data; 
+  } catch (error) {
+    console.error("Error en indexLanding:", error);
+    throw error;
+  }
 };
 
 export const show = async (id) => {

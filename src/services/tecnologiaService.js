@@ -1,8 +1,26 @@
 import { fetchWithAuth } from 'js/authToken';
 import API_BASE_URL from 'js/urlHelper';
 import { handleResponse } from 'utilities/Responses/handleResponse';
+import axios from 'axios';
 
 const BASE_URL = `${API_BASE_URL}/api/tecnologia`;
+
+
+// GET: Listar Landing
+export const indexLanding = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/index`, {
+        params: {
+            all: 'true',
+        }
+    });
+    
+    return response.data; 
+  } catch (error) {
+    console.error("Error al obtener tecnologías:", error);
+    throw error;
+  }
+};
 
 // GET: Listar
 export const index = async (page = 1, filters = {}) => {

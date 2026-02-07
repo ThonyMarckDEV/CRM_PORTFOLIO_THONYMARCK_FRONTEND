@@ -40,16 +40,6 @@ const ViewModal = ({ isOpen, onClose, title, children, isLoading = false }) => {
                         children
                     )}
                 </div>
-
-                {/* Footer */}
-                <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-end">
-                    <button
-                        onClick={onClose}
-                        className="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-900 font-medium"
-                    >
-                        Cerrar
-                    </button>
-                </div>
             </div>
         </div>
     );

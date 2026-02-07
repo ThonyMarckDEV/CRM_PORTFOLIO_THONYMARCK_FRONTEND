@@ -33,6 +33,7 @@ const Index = () => {
         }
     };
 
+    // eslint-disable-next-line
     useEffect(() => { fetchData(1); }, []);
 
     const handleDelete = async () => {
