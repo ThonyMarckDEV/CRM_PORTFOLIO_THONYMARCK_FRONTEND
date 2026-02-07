@@ -4,6 +4,7 @@ import { show, update } from 'services/proyectoService';
 import PageHeader from 'components/Shared/Headers/PageHeader';
 import AlertMessage from 'components/Shared/Errors/AlertMessage';
 import ProyectoForm from 'components/Shared/Formularios/proyecto/ProyectoForm';
+import LoadingScreen from 'components/Shared/LoadingScreen'; 
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { handleApiError } from 'utilities/Errors/apiErrorHandler';
 
@@ -26,7 +27,8 @@ const Update = () => {
         const load = async () => {
             try {
                 const res = await show(id);
-                const data = res.data || res;
+                const data = res.data || res; 
+                
                 setFormData({
                     titulo: data.titulo,
                     descripcion: data.descripcion || '',
@@ -39,7 +41,7 @@ const Update = () => {
                     imagenes_eliminadas: []
                 });
             } catch (err) {
-                setAlert(handleApiError(err,'Error al cargar proyecto'));
+                setAlert(handleApiError(err, 'Error al cargar proyecto'));
             } finally {
                 setLoading(false);
             }
@@ -68,22 +70,27 @@ const Update = () => {
                 formData.imagenes_eliminadas.forEach(id => data.append('imagenes_eliminadas[]', id));
             }
 
+            data.append('_method', 'PUT'); 
+            
             await update(id, data);
+            
             setAlert({ type: 'success', message: 'Proyecto actualizado correctamente' });
             setTimeout(() => navigate('/proyecto/listar'), 1500);
         } catch (err) {
-            setAlert(handleApiError(err,'Error al actualizar el proyecto'));
+            setAlert(handleApiError(err, 'Error al actualizar el proyecto'));
         } finally {
             setSaving(false);
         }
     };
 
-    if (loading) return <div>Cargando...</div>;
+    if (loading) return <LoadingScreen />;
 
     return (
         <div className="container mx-auto p-6">
             <PageHeader title="Editar Proyecto" icon={PencilSquareIcon} buttonText="Volver" buttonLink="/proyecto/listar" />
-            <AlertMessage type={alert?.type} message={alert?.message} details={alert?.details} />
+            
+            <AlertMessage type={alert?.type} message={alert?.message} details={alert?.details} onClose={() => setAlert(null)} />
+            
             <div className="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-sm">
                 <ProyectoForm 
                     formData={formData} 
