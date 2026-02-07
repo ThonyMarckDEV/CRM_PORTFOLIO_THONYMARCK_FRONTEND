@@ -6,6 +6,8 @@ import LoginForm from './components/LoginForm';
 import authService from 'services/authService';
 import { useAuth } from 'context/AuthContext';
 
+import logo from 'assets/img/logo.png'; 
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
- const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     
@@ -44,14 +46,18 @@ const Login = () => {
       {/* Contenedor Principal */}
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl p-8 sm:p-12 border border-gray-100">
         
-        {/* Header Genérico */}
+        {/* Header con Logo Real */}
         <div className="flex flex-col items-center mb-6">
-          {/* Logo Placeholder: Cuadrado negro simple */}
-          <div className="h-12 w-12 bg-black rounded-lg flex items-center justify-center mb-4 shadow-lg">
-             <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-             </svg>
+          
+          {/* AQUÍ ESTÁ EL CAMBIO: Reemplazamos el div negro por la imagen */}
+          <div className="mb-4">
+             <img 
+               src={logo} 
+               alt="Logo ThonyMarckDev" 
+               className="h-20 w-auto object-contain" // Ajusta h-20 según el tamaño que quieras
+             />
           </div>
+
           <h1 className="text-sm font-bold text-gray-400 tracking-widest uppercase">
             CRM - THONYMARCKDEV
           </h1>

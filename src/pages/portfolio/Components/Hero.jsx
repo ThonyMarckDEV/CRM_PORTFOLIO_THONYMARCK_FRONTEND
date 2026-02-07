@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Github, Linkedin, Mail, Download, Eye } from 'lucide-react';
-import logo from '../../../assets/img/logo.png'; 
+import logo from 'assets/img/logo.png'; 
 
 import { indexLanding } from 'services/cvService';
 import PdfModal from 'components/Shared/Modals/PdfModal';
@@ -45,7 +45,7 @@ const Hero = () => {
       connectionDistance: 150,
       speed: 0.6,
       color: '0, 0, 0',
-      opacity: 0.4
+      opacity: 0.2
     };
 
     class Particle {
@@ -92,7 +92,7 @@ const Hero = () => {
           const dy = p.y - p2.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           if (distance < particleConfig.connectionDistance) {
-            const opacity = 1 - (distance / particleConfig.connectionDistance);
+            const opacity = 0.6 - (distance / particleConfig.connectionDistance);
             ctx.beginPath();
             ctx.strokeStyle = `rgba(${particleConfig.color}, ${opacity * 0.5})`;
             ctx.lineWidth = 1.5;
