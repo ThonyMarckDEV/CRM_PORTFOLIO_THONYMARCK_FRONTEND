@@ -1,8 +1,21 @@
 import { fetchWithAuth } from 'js/authToken';
 import API_BASE_URL from 'js/urlHelper';
 import { handleResponse } from 'utilities/Responses/handleResponse';
+import axios from 'axios';
 
 const BASE_URL = `${API_BASE_URL}/api/experiencia`;
+
+export const indexLanding = async (page = 1) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/index`, {
+      params: { page }
+    });
+    return response.data; 
+  } catch (error) {
+    console.error("Error al obtener experiencias:", error);
+    throw error;
+  }
+};
 
 export const index = async (page = 1, filters = {}) => {
   const params = new URLSearchParams({
