@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline'; 
 import ConfirmModal from 'components/Shared/Modals/ConfirmModal';
 import { useAuth } from 'context/AuthContext';
-import {UserCircle } from 'lucide-react';
+import {FolderArchive, UserCircle } from 'lucide-react';
 
 // =======================================================================
 // CONFIGURACIÓN MAESTRA DEL MENÚ
@@ -50,6 +50,21 @@ const MASTER_MENU = [
             { 
                 name: 'Agregar Tecnologia', 
                 link: '/tecnologia/agregar', 
+            },
+        ],
+    },
+    { 
+        section: 'Proyectos', 
+        icon: FolderArchive,
+        allowedRoles: ['superadmin'],
+        subs: [
+            { 
+                name: 'Listar Proyectos', 
+                link: '/proyecto/listar', 
+            },
+            { 
+                name: 'Agregar Proyecto', 
+                link: '/proyecto/agregar', 
             },
         ],
     }

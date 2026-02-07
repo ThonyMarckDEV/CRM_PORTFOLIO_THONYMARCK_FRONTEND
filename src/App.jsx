@@ -19,10 +19,15 @@ import IndexCliente from 'ui/cliente/index';
 import StoreCliente from 'ui/cliente/store';
 import UpdateCliente from 'ui/cliente/update';
 
-//UI CLIENTE
+//UI TECNOLOGIA
 import IndexTecnologia from 'ui/tecnologia/index';
 import StoreTecnologia from 'ui/tecnologia/store';
 import UpdateTecnologia from 'ui/tecnologia/update';
+
+//UI PROYECTO
+import IndexProyecto from 'ui/proyecto/index';
+import StoreProyecto from 'ui/proyecto/store';
+import UpdateProyecto from 'ui/proyecto/update';
 
 
 // Utilities
@@ -65,6 +70,16 @@ function AppContent() {
             <Route path="/tecnologia/agregar" element={<StoreTecnologia />} />
             <Route path="/tecnologia/editar/:id" element={<UpdateTecnologia />} />
             <Route path="/tecnologia/listar" element={<IndexTecnologia />} />
+        </Route>
+
+        {/* =======================================================
+            MÓDULO: PROYECTOS
+           ======================================================= */}
+
+        <Route element={<ProtectedRoute element={<Outlet />} allowedRoles={['superadmin']} />}>
+            <Route path="/proyecto/agregar" element={<StoreProyecto />} />
+            <Route path="/proyecto/editar/:id" element={<UpdateProyecto />} />
+            <Route path="/proyecto/listar" element={<IndexProyecto />} />
         </Route>
 
 

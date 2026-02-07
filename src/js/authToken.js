@@ -9,11 +9,19 @@ export async function fetchWithAuth(url, options = {}) {
   
   let access_token = jwtUtils.getAccessTokenFromCookie();
 
+  // INICIO CAMBIO IMPORTANTE:
+  // Definimos los headers base SIN Content-Type todavía
   const headers = {
-    'Content-Type': 'application/json',
     'Accept': 'application/json',
     ...options.headers,
   };
+
+  // Solo forzamos 'application/json' si el body NO es FormData.
+  // Si ES FormData, dejamos que el navegador establezca 'multipart/form-data; boundary=...' automáticamente.
+  if (!(options.body instanceof FormData)) {
+      headers['Content-Type'] = 'application/json';
+  }
+  // FIN CAMBIO IMPORTANTE
 
   if (access_token) {
     headers['Authorization'] = `Bearer ${access_token}`;
@@ -41,7 +49,6 @@ export async function fetchWithAuth(url, options = {}) {
         credentials: 'include' 
       });
 
-      // Si el refresh falla (ej. el refresh token también expiró o fue revocado)
       if (!refreshResponse.ok) {
         throw new Error('No se pudo renovar el token (Refresh token inválido o expirado).');
       }
@@ -66,10 +73,7 @@ export async function fetchWithAuth(url, options = {}) {
       // D) Fallo Fatal: Logout
       // -------------------------------------------------------
       console.error("[Auth] Sesión expirada totalmente. Forzando logout...", error);
-      
-      // Si falló el refresh logout (Usará la versión importada con UI)
       logout();
-      
       return response; 
     }
   }
