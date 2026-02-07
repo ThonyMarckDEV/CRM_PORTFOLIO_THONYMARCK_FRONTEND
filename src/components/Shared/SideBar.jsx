@@ -11,6 +11,7 @@ import {
 import ConfirmModal from 'components/Shared/Modals/ConfirmModal';
 import { useAuth } from 'context/AuthContext';
 import {FolderArchive, UserCircle } from 'lucide-react';
+import { FaCertificate } from 'react-icons/fa';
 
 // =======================================================================
 // CONFIGURACIÓN MAESTRA DEL MENÚ
@@ -65,6 +66,21 @@ const MASTER_MENU = [
             { 
                 name: 'Agregar Proyecto', 
                 link: '/proyecto/agregar', 
+            },
+        ],
+    },
+    { 
+        section: 'Experiencias', 
+        icon: FaCertificate,
+        allowedRoles: ['superadmin'],
+        subs: [
+            { 
+                name: 'Listar Experiencias', 
+                link: '/experiencia/listar', 
+            },
+            { 
+                name: 'Agregar Experiencia', 
+                link: '/experiencia/agregar', 
             },
         ],
     }

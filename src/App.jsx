@@ -29,6 +29,12 @@ import IndexProyecto from 'ui/proyecto/index';
 import StoreProyecto from 'ui/proyecto/store';
 import UpdateProyecto from 'ui/proyecto/update';
 
+//UI EXPERIENCIA
+import IndexExperiencia from 'ui/experiencia/index';
+import StoreExperiencia from 'ui/experiencia/store';
+import UpdateExperiencia from 'ui/experiencia/update';
+
+
 
 // Utilities
 import ProtectedRouteHome from 'utilities/ProtectedRoutes/ProtectedRouteHome';
@@ -82,6 +88,16 @@ function AppContent() {
             <Route path="/proyecto/listar" element={<IndexProyecto />} />
         </Route>
 
+        {/* =======================================================
+            MÓDULO: EXPERIENCIA
+           ======================================================= */}
+
+        <Route element={<ProtectedRoute element={<Outlet />} allowedRoles={['superadmin']} />}>
+            <Route path="/experiencia/agregar" element={<StoreExperiencia />} />
+            <Route path="/experiencia/editar/:id" element={<UpdateExperiencia />} />
+            <Route path="/experiencia/listar" element={<IndexExperiencia  />} />
+        </Route>
+        
 
 
       </Route>
