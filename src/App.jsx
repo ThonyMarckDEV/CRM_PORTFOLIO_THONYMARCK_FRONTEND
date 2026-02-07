@@ -19,6 +19,12 @@ import IndexCliente from 'ui/cliente/index';
 import StoreCliente from 'ui/cliente/store';
 import UpdateCliente from 'ui/cliente/update';
 
+//UI CLIENTE
+import IndexTecnologia from 'ui/tecnologia/index';
+import StoreTecnologia from 'ui/tecnologia/store';
+import UpdateTecnologia from 'ui/tecnologia/update';
+
+
 // Utilities
 import ProtectedRouteHome from 'utilities/ProtectedRoutes/ProtectedRouteHome';
 import ProtectedRoute from 'utilities/ProtectedRoutes/ProtectedRoute';
@@ -45,11 +51,23 @@ function AppContent() {
             MÓDULO: CLIENTES
            ======================================================= */}
 
-        <Route element={<ProtectedRoute element={<Outlet />} allowedRoles={['superadmin' ,  'admin']} />}>
+        <Route element={<ProtectedRoute element={<Outlet />} allowedRoles={['superadmin']} />}>
             <Route path="/cliente/agregar" element={<StoreCliente />} />
             <Route path="/cliente/editar/:id" element={<UpdateCliente />} />
             <Route path="/cliente/listar" element={<IndexCliente />} />
         </Route>
+
+        {/* =======================================================
+            MÓDULO: TECNOLOGIAS
+           ======================================================= */}
+
+        <Route element={<ProtectedRoute element={<Outlet />} allowedRoles={['superadmin']} />}>
+            <Route path="/tecnologia/agregar" element={<StoreTecnologia />} />
+            <Route path="/tecnologia/editar/:id" element={<UpdateTecnologia />} />
+            <Route path="/tecnologia/listar" element={<IndexTecnologia />} />
+        </Route>
+
+
 
       </Route>
 

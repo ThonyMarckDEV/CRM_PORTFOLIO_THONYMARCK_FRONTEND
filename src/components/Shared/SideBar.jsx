@@ -5,11 +5,12 @@ import {
     ChevronDownIcon, 
     ArrowRightOnRectangleIcon,
     HomeIcon,
-    CubeIcon
+    CubeIcon,
+    CpuChipIcon
 } from '@heroicons/react/24/outline'; 
 import ConfirmModal from 'components/Shared/Modals/ConfirmModal';
 import { useAuth } from 'context/AuthContext';
-import { UserCircle } from 'lucide-react';
+import {UserCircle } from 'lucide-react';
 
 // =======================================================================
 // CONFIGURACIÓN MAESTRA DEL MENÚ
@@ -20,12 +21,12 @@ const MASTER_MENU = [
         section: 'Dashboard',
         link: '/home',
         icon: HomeIcon,
-        allowedRoles: ['superadmin', 'admin', 'usuario']
+        allowedRoles: ['superadmin']
     },
     { 
         section: 'Clientes', 
         icon: UserCircle,
-        allowedRoles: ['superadmin' , 'admin'],
+        allowedRoles: ['superadmin'],
         subs: [
             { 
                 name: 'Listar Clientes', 
@@ -34,6 +35,21 @@ const MASTER_MENU = [
             { 
                 name: 'Agregar Cliente', 
                 link: '/cliente/agregar', 
+            },
+        ],
+    },
+    { 
+        section: 'Tecnologias', 
+        icon: CpuChipIcon,
+        allowedRoles: ['superadmin'],
+        subs: [
+            { 
+                name: 'Listar Tecnologias', 
+                link: '/tecnologia/listar', 
+            },
+            { 
+                name: 'Agregar Tecnologia', 
+                link: '/tecnologia/agregar', 
             },
         ],
     }
@@ -130,10 +146,10 @@ const Sidebar = () => {
                 {/* 1. HEADER */}
                 <div className={`flex items-center justify-center flex-shrink-0 border-b border-gray-100 transition-all duration-300 ${isHovered ? 'h-24' : 'h-20'}`}>
                     <div className="bg-black text-white flex items-center justify-center font-bold rounded-lg w-10 h-10 text-xl transition-all duration-300">
-                        S
+                        TM
                     </div>
                     <div className={`ml-3 font-bold text-lg tracking-tight overflow-hidden transition-all duration-300 whitespace-nowrap ${!isHovered ? 'w-0 opacity-0' : 'w-auto opacity-100'}`}>
-                        SISTEMA<span className="text-gray-400">ADMIN</span>
+                        <span className="text-gray-400">CRM</span>
                     </div>
                 </div>
 
