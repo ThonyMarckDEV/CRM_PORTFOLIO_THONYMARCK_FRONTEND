@@ -1,11 +1,8 @@
-import React, { useRef } from 'react';
-import { XMarkIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
+import React, { useRef , useEffect} from 'react';
+import { XMarkIcon, ArrowDownTrayIcon, PrinterIcon } from '@heroicons/react/24/outline';
 
-// Agregamos isPrintable con valor por defecto true
 const PdfModal = ({ isOpen, onClose, title, pdfUrl, isPrintable = true }) => {
     const iframeRef = useRef(null);
-
-    if (!isOpen) return null;
 
     const handlePrint = () => {
         if (iframeRef.current) {
@@ -15,70 +12,81 @@ const PdfModal = ({ isOpen, onClose, title, pdfUrl, isPrintable = true }) => {
         }
     };
 
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-            <div className="bg-white rounded-lg shadow-2xl w-full max-w-5xl h-[95vh] flex flex-col overflow-hidden animate-fade-in">
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6">
+            <div 
+                className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm transition-opacity"
+                onClick={onClose}
+            ></div>
+
+            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl h-[90vh] flex flex-col overflow-hidden animate-scale-in border border-white/10">
                 
-                {/* Header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b bg-slate-50">
-                    <div>
-                        <h3 className="text-xl font-bold text-slate-800">{title}</h3>
-                        <p className="text-xs text-slate-500 uppercase tracking-widest">Vista Previa del Documento</p>
+                <div className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-100 z-10 shadow-sm">
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">Documento</span>
+                        <h3 className="text-lg font-semibold text-gray-800 truncate max-w-md" title={title}>{title}</h3>
                     </div>
-                    <div className="flex items-center gap-3">
-                        {/* Botón Descargar */}
+                    
+                    <div className="flex items-center gap-2">
                         <a 
                             href={pdfUrl} 
                             target="_blank" 
                             rel="noreferrer"
-                            className="p-2 text-slate-600 hover:bg-slate-200 rounded-full transition-colors"
-                            title="Descargar PDF"
+                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-black transition-all duration-200"
                         >
-                            <ArrowDownTrayIcon className="w-6 h-6" />
+                            <ArrowDownTrayIcon className="w-4 h-4" />
+                            <span className="hidden sm:inline">Descargar</span>
                         </a>
+
+                        {isPrintable && (
+                            <button 
+                                onClick={handlePrint}
+                                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-all duration-200 shadow-lg shadow-black/20"
+                            >
+                                <PrinterIcon className="w-4 h-4" />
+                                <span className="hidden sm:inline">Imprimir</span>
+                            </button>
+                        )}
                         
+                        <div className="w-px h-6 bg-gray-200 mx-2"></div>
+
                         <button 
                             onClick={onClose}
-                            className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors duration-200"
                         >
-                            <XMarkIcon className="w-7 h-7" />
+                            <XMarkIcon className="w-6 h-6" />
                         </button>
                     </div>
                 </div>
 
-                {/* Body */}
-                <div className="flex-1 bg-slate-200 overflow-hidden relative">
+                <div className="flex-1 bg-gray-50 overflow-hidden relative">
                     <iframe 
                         ref={iframeRef}
-                        src={`${pdfUrl}#toolbar=0`} 
-                        className="w-full h-full"
+                        src={`${pdfUrl}#toolbar=0&view=FitH`} 
+                        className="w-full h-full border-none"
                         title="PDF Viewer"
                     />
                 </div>
-
-                {/* Footer */}
-                {/* Solo mostramos el footer si es imprimible, o puedes dejar el footer vacío si prefieres */}
-                <div className="px-6 py-3 border-t bg-slate-50 flex justify-end gap-3 min-h-[60px]">
-                    {isPrintable && (
-                        <button 
-                            onClick={handlePrint}
-                            className="px-6 py-2 bg-slate-800 text-white rounded font-bold hover:bg-black transition-colors flex items-center gap-2"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z" />
-                            </svg>
-                            Imprimir Ahora
-                        </button>
-                    )}
-                </div>
             </div>
+
             <style jsx>{`
-                @keyframes fade-in {
-                    from { opacity: 0; transform: scale(0.95); }
-                    to { opacity: 1; transform: scale(1); }
+                @keyframes scale-in {
+                    0% { opacity: 0; transform: scale(0.98); }
+                    100% { opacity: 1; transform: scale(1); }
                 }
-                .animate-fade-in {
-                    animation: fade-in 0.2s ease-out forwards;
+                .animate-scale-in {
+                    animation: scale-in 0.3s ease-out forwards;
                 }
             `}</style>
         </div>

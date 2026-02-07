@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline'; 
 import ConfirmModal from 'components/Shared/Modals/ConfirmModal';
 import { useAuth } from 'context/AuthContext';
-import {FolderArchive, UserCircle } from 'lucide-react';
+import {FolderArchive, PaperclipIcon, UserCircle } from 'lucide-react';
 import { FaCertificate } from 'react-icons/fa';
 
 // =======================================================================
@@ -81,6 +81,21 @@ const MASTER_MENU = [
             { 
                 name: 'Agregar Experiencia', 
                 link: '/experiencia/agregar', 
+            },
+        ],
+    },
+    { 
+        section: 'CV', 
+        icon: PaperclipIcon,
+        allowedRoles: ['superadmin'],
+        subs: [
+            { 
+                name: 'Listar Cvs', 
+                link: '/cv/listar', 
+            },
+            { 
+                name: 'Agregar Cv', 
+                link: '/cv/agregar', 
             },
         ],
     }

@@ -37,7 +37,10 @@ import IndexExperiencia from 'pages/experiencia/index';
 import StoreExperiencia from 'pages/experiencia/store';
 import UpdateExperiencia from 'pages/experiencia/update';
 
-
+//UI CV
+import IndexCv from 'pages/cv/index';
+import StoreCv from 'pages/cv/store';
+import UpdateCv from 'pages/cv/update';
 
 // Utilities
 import ProtectedRouteHome from 'utilities/ProtectedRoutes/ProtectedRouteHome';
@@ -103,6 +106,16 @@ function AppContent() {
             <Route path="/experiencia/agregar" element={<StoreExperiencia />} />
             <Route path="/experiencia/editar/:id" element={<UpdateExperiencia />} />
             <Route path="/experiencia/listar" element={<IndexExperiencia  />} />
+        </Route>
+
+        {/* =======================================================
+            MÓDULO: CV
+           ======================================================= */}
+
+        <Route element={<ProtectedRoute element={<Outlet />} allowedRoles={['superadmin']} />}>
+            <Route path="/cv/agregar" element={<StoreCv />} />
+            <Route path="/cv/editar/:id" element={<UpdateCv />} />
+            <Route path="/cv/listar" element={<IndexCv />} />
         </Route>
         
 

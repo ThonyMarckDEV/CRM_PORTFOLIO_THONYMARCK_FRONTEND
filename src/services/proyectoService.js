@@ -17,7 +17,7 @@ export const index = async (page = 1, filters = {}) => {
 
 export const indexLanding = async (page = 1) => {
   try {
-    const response = await axios.get(`${BASE_URL}/index`, {
+    const response = await axios.get(`${BASE_URL}/indexlanding`, {
       params: {
         page: page,
         estado: 1,

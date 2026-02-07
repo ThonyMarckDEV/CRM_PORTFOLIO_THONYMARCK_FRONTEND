@@ -3,16 +3,16 @@ import API_BASE_URL from 'js/urlHelper';
 import { handleResponse } from 'utilities/Responses/handleResponse';
 import axios from 'axios';
 
-const BASE_URL = `${API_BASE_URL}/api/experiencia`;
+const BASE_URL = `${API_BASE_URL}/api/cv`;
 
-export const indexLanding = async (page = 1) => {
+export const indexLanding = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/indexlanding`, {
-      params: { page }
+        params: { principal: 1 }
     });
     return response.data; 
   } catch (error) {
-    console.error("Error al obtener experiencias:", error);
+    console.error("Error al obtener CV:", error);
     throw error;
   }
 };
@@ -21,7 +21,6 @@ export const index = async (page = 1, filters = {}) => {
   const params = new URLSearchParams({
     page,
     search: filters.search || '',
-    actual: filters.actual !== '' ? filters.actual : ''
   });
   return handleResponse(await fetchWithAuth(`${BASE_URL}/index?${params.toString()}`, { method: 'GET' }));
 };

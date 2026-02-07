@@ -9,7 +9,7 @@ const BASE_URL = `${API_BASE_URL}/api/tecnologia`;
 // GET: Listar Landing
 export const indexLanding = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/index`, {
+    const response = await axios.get(`${BASE_URL}/indexlanding`, {
         params: {
             all: 'true',
         }

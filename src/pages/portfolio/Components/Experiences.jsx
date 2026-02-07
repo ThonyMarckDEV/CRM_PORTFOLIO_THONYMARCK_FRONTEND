@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Award, ExternalLink, Loader2, ChevronLeft, ChevronRight, Building2, Eye } from 'lucide-react';
+import { Calendar, Award, Loader2, ChevronLeft, ChevronRight, Building2, Eye } from 'lucide-react';
 import { indexLanding } from 'services/experienciaService';
 
 
