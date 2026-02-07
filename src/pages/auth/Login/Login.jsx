@@ -3,17 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import LoadingScreen from 'components/Shared/LoadingScreen';
 import LoginForm from './components/LoginForm';
-import ForgotPasswordForm from './components/ForgotPasswordForm';
 import authService from 'services/authService';
 import { useAuth } from 'context/AuthContext';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [dni, setDni] = useState('');
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -41,8 +38,6 @@ const Login = () => {
     }
   };
 
-  const handleForgotPassword = async (e) => { /* lógica genérica */ };
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
       
@@ -58,7 +53,7 @@ const Login = () => {
              </svg>
           </div>
           <h1 className="text-sm font-bold text-gray-400 tracking-widest uppercase">
-            Sistema de Gestión Integral
+            CRM - THONYMARCKDEV
           </h1>
         </div>
 
@@ -67,13 +62,6 @@ const Login = () => {
              <div className="flex justify-center items-center h-64">
               <LoadingScreen />
             </div>
-          ) : showForgotPassword ? (
-            <ForgotPasswordForm
-              dni={dni}
-              setDni={setDni}
-              handleForgotPassword={handleForgotPassword}
-              setShowForgotPassword={setShowForgotPassword}
-            />
           ) : (
             <LoginForm
               username={username}
@@ -83,7 +71,6 @@ const Login = () => {
               handleLogin={handleLogin}
               rememberMe={rememberMe}
               setRememberMe={setRememberMe}
-              setShowForgotPassword={setShowForgotPassword}
             />
           )}
         </div>
@@ -91,7 +78,7 @@ const Login = () => {
         {/* Footer simple */}
         <div className="mt-8 text-center">
             <p className="text-xs text-gray-400">
-                © {new Date().getFullYear()} Empresa S.A.C. Todos los derechos reservados.
+                © {new Date().getFullYear()} ThonyMarckDEV Todos los derechos reservados.
             </p>
         </div>
       </div>
