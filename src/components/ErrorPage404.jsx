@@ -1,91 +1,77 @@
-import React, { useEffect } from 'react';
-import { FaRegAngry } from 'react-icons/fa';
+import React from 'react';
+import { FaGhost } from 'react-icons/fa'; // Cambié a un fantasma o usa FaRegAngry si prefieres
 
-const ErrorPage = () => {
-  // Efecto de animación al cargar la página
-  useEffect(() => {
-    const elementsToAnimate = document.querySelectorAll('.animate-in');
-    
-    elementsToAnimate.forEach((element, index) => {
-      setTimeout(() => {
-        element.classList.add('animate-show');
-      }, 200 * index);
-    });
-  }, []);
-
+const ErrorPage404 = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-white text-white">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white text-black overflow-hidden relative selection:bg-black selection:text-white">
+      
+      {/* Fondo con textura sutil (opcional) */}
+      <div className="absolute inset-0 z-0 opacity-[0.03]" 
+           style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }}>
+      </div>
 
-      {/* Contenido principal */}
-      <div className="flex-grow flex justify-center items-center relative z-10">
-        <div className="text-center p-6 md:p-12">
-          {/* Ícono con animación */}
-          <div className="animate-in opacity-0 transform translate-y-8 transition-all duration-700 ease-out">
-            <FaRegAngry className="text-8xl text-red-600 mb-8 mx-auto animate-bounce-slow" />
-          </div>
-          
-          {/* Título "404" con efecto de glow */}
-          <h1 className="animate-in opacity-0 transform translate-y-8 transition-all duration-700 ease-out text-9xl font-bold text-transparent bg-clip-text bg-red-700 mb-4 ">
-            404
-          </h1>
-          
-          {/* Texto con animación */}
-          <p className="animate-in opacity-0 transform translate-y-8 transition-all duration-700 ease-out text-2xl text-black mb-8 max-w-2xl mx-auto">
-            No deberias estar aqui!!!.
-          </p>
-          
-          {/* Botón con animación */}
-          <div className="animate-in opacity-0 transform translate-y-8 transition-all duration-700 ease-out">
-            <a
-              href="/"
-              className="inline-block px-8 py-4 bg-red-600 text-white text-lg font-semibold rounded-lg  transition-all duration-300 transform hover:scale-105"
-            >
-              Volver al inicio
-            </a>
-          </div>
+      <div className="relative z-10 text-center px-6">
+        
+        {/* Animación 1: Icono */}
+        <div className="flex justify-center mb-6 animate-fade-up" style={{ animationDelay: '0.1s' }}>
+            {/* Puedes usar FaRegAngry aquí si prefieres */}
+            <FaGhost className="text-8xl text-gray-900 animate-float" />
+        </div>
+
+        {/* Animación 2: Número Gigante */}
+        <h1 className="text-[10rem] md:text-[12rem] leading-none font-black tracking-tighter animate-fade-up" style={{ animationDelay: '0.2s' }}>
+          404
+        </h1>
+
+        {/* Animación 3: Mensaje */}
+        <div className="animate-fade-up" style={{ animationDelay: '0.3s' }}>
+            <h2 className="text-2xl md:text-3xl font-light text-gray-800 mb-4 uppercase tracking-widest">
+                Página no encontrada
+            </h2>
+            <p className="text-gray-500 mb-10 max-w-md mx-auto font-light">
+                Parece que te has perdido en el vacío. La página que buscas no existe o ha sido movida.
+            </p>
+        </div>
+
+        {/* Animación 4: Botón */}
+        <div className="animate-fade-up" style={{ animationDelay: '0.4s' }}>
+          <a
+            href="/"
+            className="group relative inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-black border border-transparent rounded-full overflow-hidden transition-all duration-300 hover:bg-gray-900 hover:scale-105 hover:shadow-2xl hover:shadow-gray-400/50"
+          >
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-gray-800 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+            <span className="relative flex items-center gap-2">
+                Volver al Inicio
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 group-hover:translate-x-1 transition-transform">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                </svg>
+            </span>
+          </a>
         </div>
       </div>
 
-      {/* Estilos CSS para las animaciones */}
-      <style jsx>{`
+      <style>{`
+        @keyframes fade-up {
+          0% { opacity: 0; transform: translateY(30px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        
         @keyframes float {
-          0% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-          100% { transform: translateY(0) rotate(360deg); }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-15px); }
         }
-        
-        .animate-bounce-slow {
-          animation: bounce 3s infinite;
+
+        .animate-fade-up {
+          opacity: 0; /* Inicia invisible */
+          animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        
-        @keyframes bounce {
-          0%, 100% { transform: translateY(-5%); }
-          50% { transform: translateY(5%); }
-        }
-        
-        .glow-text {
-          text-shadow: 0 0 15px rgba(255, 0, 0, 0.5), 0 0 25px rgba(255, 200, 0, 0.3);
-        }
-        
-        .shadow-red-glow {
-          box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-        }
-        
-        .shadow-red-glow-intense {
-          box-shadow: 0 0 25px rgba(255, 0, 0, 0.6), 0 0 15px rgba(255, 200, 0, 0.3);
-        }
-        
-        .animate-in {
-          transition-property: opacity, transform;
-        }
-        
-        .animate-show {
-          opacity: 1 !important;
-          transform: translateY(0) !important;
+
+        .animate-float {
+          animation: float 4s ease-in-out infinite;
         }
       `}</style>
     </div>
   );
 };
 
-export default ErrorPage;
+export default ErrorPage404;

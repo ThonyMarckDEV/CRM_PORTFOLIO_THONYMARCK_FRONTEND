@@ -1,91 +1,71 @@
-import React, { useEffect } from 'react';
-import { FaRegSadCry } from 'react-icons/fa';
+import React from 'react';
+import { FaLock } from 'react-icons/fa'; // Icono de candado es más semántico para 401
 
-const ErrorPage = () => {
-  // Efecto de animación al cargar la página
-  useEffect(() => {
-    const elementsToAnimate = document.querySelectorAll('.animate-in');
-    
-    elementsToAnimate.forEach((element, index) => {
-      setTimeout(() => {
-        element.classList.add('animate-show');
-      }, 200 * index);
-    });
-  }, []);
-
+const ErrorPage401 = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-white text-white">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white text-black overflow-hidden relative selection:bg-black selection:text-white">
+      
+      {/* Fondo geométrico minimalista */}
+      <div className="absolute top-0 left-0 w-full h-2 bg-black"></div>
+      <div className="absolute bottom-0 left-0 w-full h-2 bg-black"></div>
 
-      {/* Contenido principal */}
-      <div className="flex-grow flex justify-center items-center relative z-10">
-        <div className="text-center p-6 md:p-12">
-          {/* Ícono con animación */}
-          <div className="animate-in opacity-0 transform translate-y-8 transition-all duration-700 ease-out">
-            <FaRegSadCry className="text-8xl text-red-600 mb-8 mx-auto animate-bounce-slow" />
-          </div>
-          
-          {/* Título "404" con efecto de glow */}
-          <h1 className="animate-in opacity-0 transform translate-y-8 transition-all duration-700 ease-out text-9xl font-bold text-transparent bg-clip-text bg-red-700 mb-4 ">
-            401
-          </h1>
-          
-          {/* Texto con animación */}
-          <p className="animate-in opacity-0 transform translate-y-8 transition-all duration-700 ease-out text-2xl text-black mb-8 max-w-2xl mx-auto">
-             La página que buscas no existe o se ha movido. Verifica la URL o regresa al inicio.
-          </p>
-          
-          {/* Botón con animación */}
-          <div className="animate-in opacity-0 transform translate-y-8 transition-all duration-700 ease-out">
-            <a
-              href="/"
-              className="inline-block px-8 py-4 bg-red-600 text-white text-lg font-semibold rounded-lg  transition-all duration-300 transform hover:scale-105"
-            >
-              Volver al inicio
-            </a>
-          </div>
+      <div className="relative z-10 text-center px-6 max-w-2xl">
+        
+        {/* Icono Candado */}
+        <div className="flex justify-center mb-8 animate-fade-up" style={{ animationDelay: '0.1s' }}>
+            <div className="p-6 bg-gray-50 rounded-full border border-gray-100 shadow-sm">
+                <FaLock className="text-5xl text-black" />
+            </div>
+        </div>
+
+        {/* Título */}
+        <h1 className="text-8xl font-bold tracking-tighter mb-2 animate-fade-up" style={{ animationDelay: '0.2s' }}>
+          401
+        </h1>
+        
+        <h2 className="text-xl md:text-2xl font-medium text-gray-900 mb-6 uppercase tracking-widest animate-fade-up" style={{ animationDelay: '0.3s' }}>
+            Acceso Denegado
+        </h2>
+
+        {/* Línea decorativa */}
+        <div className="w-16 h-1 bg-black mx-auto mb-8 animate-fade-up" style={{ animationDelay: '0.35s' }}></div>
+
+        {/* Mensaje */}
+        <p className="text-lg text-gray-600 mb-10 font-light leading-relaxed animate-fade-up" style={{ animationDelay: '0.4s' }}>
+            No tienes los permisos necesarios para ver este recurso. <br className="hidden md:block"/>
+            Si crees que esto es un error, contacta al administrador del sistema.
+        </p>
+
+        {/* Botones de Acción */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up" style={{ animationDelay: '0.5s' }}>
+          <a
+            href="/"
+            className="px-8 py-3 bg-black text-white text-sm font-bold uppercase tracking-wide rounded hover:bg-gray-800 transition-all hover:shadow-lg transform hover:-translate-y-1"
+          >
+            Ir al Inicio
+          </a>
+          <a
+            href="/login" // Asumiendo que tienes una ruta de login
+            className="px-8 py-3 bg-white text-black border border-black text-sm font-bold uppercase tracking-wide rounded hover:bg-gray-50 transition-all hover:shadow-lg transform hover:-translate-y-1"
+          >
+            Iniciar Sesión
+          </a>
         </div>
       </div>
 
-      {/* Estilos CSS para las animaciones */}
-      <style jsx>{`
-        @keyframes float {
-          0% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-          100% { transform: translateY(0) rotate(360deg); }
+      <style>{`
+        @keyframes fade-up {
+          0% { opacity: 0; transform: translateY(20px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
-        
-        .animate-bounce-slow {
-          animation: bounce 3s infinite;
-        }
-        
-        @keyframes bounce {
-          0%, 100% { transform: translateY(-5%); }
-          50% { transform: translateY(5%); }
-        }
-        
-        .glow-text {
-          text-shadow: 0 0 15px rgba(255, 0, 0, 0.5), 0 0 25px rgba(255, 200, 0, 0.3);
-        }
-        
-        .shadow-red-glow {
-          box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-        }
-        
-        .shadow-red-glow-intense {
-          box-shadow: 0 0 25px rgba(255, 0, 0, 0.6), 0 0 15px rgba(255, 200, 0, 0.3);
-        }
-        
-        .animate-in {
-          transition-property: opacity, transform;
-        }
-        
-        .animate-show {
-          opacity: 1 !important;
-          transform: translateY(0) !important;
+
+        .animate-fade-up {
+          opacity: 0;
+          animation: fade-up 0.6s ease-out forwards;
         }
       `}</style>
     </div>
   );
 };
 
-export default ErrorPage;
+export default ErrorPage401;
