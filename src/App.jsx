@@ -9,30 +9,33 @@ import SidebarLayout from 'layouts/SidebarLayout';
 // UIS AUTH & ERRORS
 import ErrorPage404 from 'components/ErrorPage404';
 import ErrorPage401 from 'components/ErrorPage401';
-import Login from 'ui/auth/Login/Login';
+import Login from 'pages/auth/Login/Login';
 
 // UI HOME
-import Home from 'ui/home/Home';
+import Home from 'pages/home/Home';
+
+//UI PORTFOLIO
+import Portfolio from 'pages/portfolio/Portfolio';
 
 //UI CLIENTE
-import IndexCliente from 'ui/cliente/index';
-import StoreCliente from 'ui/cliente/store';
-import UpdateCliente from 'ui/cliente/update';
+import IndexCliente from 'pages/cliente/index';
+import StoreCliente from 'pages/cliente/store';
+import UpdateCliente from 'pages/cliente/update';
 
 //UI TECNOLOGIA
-import IndexTecnologia from 'ui/tecnologia/index';
-import StoreTecnologia from 'ui/tecnologia/store';
-import UpdateTecnologia from 'ui/tecnologia/update';
+import IndexTecnologia from 'pages/tecnologia/index';
+import StoreTecnologia from 'pages/tecnologia/store';
+import UpdateTecnologia from 'pages/tecnologia/update';
 
 //UI PROYECTO
-import IndexProyecto from 'ui/proyecto/index';
-import StoreProyecto from 'ui/proyecto/store';
-import UpdateProyecto from 'ui/proyecto/update';
+import IndexProyecto from 'pages/proyecto/index';
+import StoreProyecto from 'pages/proyecto/store';
+import UpdateProyecto from 'pages/proyecto/update';
 
 //UI EXPERIENCIA
-import IndexExperiencia from 'ui/experiencia/index';
-import StoreExperiencia from 'ui/experiencia/store';
-import UpdateExperiencia from 'ui/experiencia/update';
+import IndexExperiencia from 'pages/experiencia/index';
+import StoreExperiencia from 'pages/experiencia/store';
+import UpdateExperiencia from 'pages/experiencia/update';
 
 
 
@@ -44,10 +47,14 @@ import { AuthProvider } from 'context/AuthContext';
 function AppContent() {
   return (
     <Routes>
-      {/* 1. LOGIN */}
-      <Route path="/" element={<ProtectedRouteHome element={<Login />} />} />
+      {/* PORTFOLIO */}
+      <Route path="/" element={<ProtectedRouteHome element={<Portfolio />} />} />
 
-      {/* 2. LAYOUT GLOBAL */}
+
+      {/* Login */}
+      <Route path="/login" element={<ProtectedRouteHome element={<Login />} />} />
+
+      {/* LAYOUT GLOBAL */}
       <Route
         element={
           <ProtectedRoute 
