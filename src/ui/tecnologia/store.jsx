@@ -47,7 +47,7 @@ const Store = () => {
         buttonLink="/tecnologia/listar" 
       />
       
-      <AlertMessage type={alert?.type} message={alert?.message} onClose={() => setAlert(null)} />
+      <AlertMessage type={alert?.type} message={alert?.message} details={alert?.details}  onClose={() => setAlert(null)} />
 
       <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
          <div className="space-y-6">

@@ -28,8 +28,8 @@ const Update = () => {
             nombre: data.nombre,
             imagen_url: data.imagen_url
         });
-      } catch (e) {
-        setAlert({ type: 'error', message: 'No se pudo cargar la información.' });
+      } catch (err) {
+        setAlert(handleApiError(err,'No se pudo cargar la información.'));
       } finally {
         setLoading(false);
       }
@@ -69,7 +69,7 @@ const Update = () => {
         buttonLink="/tecnologia/listar"
       />
 
-      <AlertMessage type={alert?.type} message={alert?.message} onClose={() => setAlert(null)} />
+      <AlertMessage type={alert?.type} message={alert?.message} details={alert?.details}  onClose={() => setAlert(null)} />
 
       <div className="max-w-2xl mx-auto">
         <form onSubmit={handleSubmit} className="space-y-6">

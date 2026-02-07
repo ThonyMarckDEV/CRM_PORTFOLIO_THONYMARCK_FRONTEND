@@ -150,7 +150,7 @@ const Index = () => {
   return (
     <div className="container mx-auto p-6">
       <PageHeader title="Gestión de Clientes" icon={UserGroupIcon} buttonText="+ Nuevo Cliente" buttonLink="/cliente/agregar" />
-      <AlertMessage type={alert?.type} message={alert?.message} onClose={() => setAlert(null)} />
+      <AlertMessage type={alert?.type} message={alert?.message} details={alert?.details}  onClose={() => setAlert(null)} />
       
       <Table
         columns={columns}

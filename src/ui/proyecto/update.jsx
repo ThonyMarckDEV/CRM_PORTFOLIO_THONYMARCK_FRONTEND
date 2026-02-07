@@ -5,6 +5,7 @@ import PageHeader from 'components/Shared/Headers/PageHeader';
 import AlertMessage from 'components/Shared/Errors/AlertMessage';
 import ProyectoForm from 'components/Shared/Formularios/proyecto/ProyectoForm';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { handleApiError } from 'utilities/Errors/apiErrorHandler';
 
 const Update = () => {
     const { id } = useParams();
@@ -37,8 +38,8 @@ const Update = () => {
                     imagenes_actuales: data.imagenes || [], 
                     imagenes_eliminadas: []
                 });
-            } catch (e) {
-                setAlert({ type: 'error', message: 'Error al cargar proyecto' });
+            } catch (err) {
+                setAlert(handleApiError(err,'Error al cargar proyecto'));
             } finally {
                 setLoading(false);
             }
@@ -70,8 +71,8 @@ const Update = () => {
             await update(id, data);
             setAlert({ type: 'success', message: 'Proyecto actualizado correctamente' });
             setTimeout(() => navigate('/proyecto/listar'), 1500);
-        } catch (error) {
-            setAlert({ type: 'error', message: 'Error al actualizar', details: error.message });
+        } catch (err) {
+            setAlert(handleApiError(err,'Error al actualizar el proyecto'));
         } finally {
             setSaving(false);
         }
@@ -82,7 +83,7 @@ const Update = () => {
     return (
         <div className="container mx-auto p-6">
             <PageHeader title="Editar Proyecto" icon={PencilSquareIcon} buttonText="Volver" buttonLink="/proyecto/listar" />
-            <AlertMessage type={alert?.type} message={alert?.message} />
+            <AlertMessage type={alert?.type} message={alert?.message} details={alert?.details} />
             <div className="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-sm">
                 <ProyectoForm 
                     formData={formData} 

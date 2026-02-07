@@ -90,7 +90,7 @@ const Update = () => {
         buttonLink="/cliente/listar"
       />
 
-      <AlertMessage type={alert?.type} message={alert?.message} onClose={() => setAlert(null)} />
+      <AlertMessage type={alert?.type} message={alert?.message}  details={alert?.details} onClose={() => setAlert(null)} />
 
       <div className="max-w-4xl mx-auto">
         <form onSubmit={handleSubmit} className="space-y-6">

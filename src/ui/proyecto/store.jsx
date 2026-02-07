@@ -5,6 +5,7 @@ import PageHeader from 'components/Shared/Headers/PageHeader';
 import AlertMessage from 'components/Shared/Errors/AlertMessage';
 import ProyectoForm from 'components/Shared/Formularios/proyecto/ProyectoForm';
 import { FolderPlusIcon } from '@heroicons/react/24/outline';
+import { handleApiError } from 'utilities/Errors/apiErrorHandler';
 
 const Store = () => {
     const navigate = useNavigate();
@@ -35,8 +36,8 @@ const Store = () => {
             await store(data);
             setAlert({ type: 'success', message: 'Proyecto creado exitosamente' });
             setTimeout(() => navigate('/proyecto/listar'), 1500);
-        } catch (error) {
-            setAlert({ type: 'error', message: 'Error al crear proyecto', details: error.message });
+        } catch (err) {
+            setAlert(handleApiError(err,'Error al crear proyecto'));
         } finally {
             setLoading(false);
         }
@@ -45,7 +46,7 @@ const Store = () => {
     return (
         <div className="container mx-auto p-6">
             <PageHeader title="Nuevo Proyecto" icon={FolderPlusIcon} buttonText="Volver" buttonLink="/proyecto/listar" />
-            <AlertMessage type={alert?.type} message={alert?.message} />
+            <AlertMessage type={alert?.type} message={alert?.message} details={alert?.details} />
             <div className="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-sm">
                 <ProyectoForm 
                     formData={formData} 
