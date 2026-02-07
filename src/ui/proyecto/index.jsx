@@ -7,6 +7,7 @@ import AlertMessage from 'components/Shared/Errors/AlertMessage';
 import ConfirmModal from 'components/Shared/Modals/ConfirmModal';
 import ViewModal from 'components/Shared/Modals/ViewModal';
 import { FolderIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/react/24/outline';
+import { handleApiError } from 'utilities/Errors/apiErrorHandler';
 
 const Index = () => {
     const [proyectos, setProyectos] = useState([]);
@@ -44,8 +45,8 @@ const Index = () => {
             await destroy(deleteId);
             setAlert({ type: 'success', message: 'Proyecto eliminado y archivos borrados.' });
             fetchData(pagination.currentPage);
-        } catch (e) {
-            setAlert({ type: 'error', message: 'Error al eliminar' });
+        } catch (err) {
+            setAlert(handleApiError(err,  'Error al eliminar' ));
         } finally {
             setDeleteId(null);
         }
@@ -57,8 +58,8 @@ const Index = () => {
             await toggleStatus(toggleId);
             setAlert({ type: 'success', message: 'El estado del proyecto ha sido actualizado.' });
             fetchData(pagination.currentPage);
-        } catch (e) {
-            setAlert({ type: 'error', message: 'Error al cambiar el estado' });
+        } catch (err) {
+            setAlert(handleApiError(err,  'Error al cambiar el estado' ));
         } finally {
             setToggleId(null);
         }
@@ -70,8 +71,8 @@ const Index = () => {
         try {
             const res = await show(id);
             setViewData(res.data || res);
-        } catch (e) {
-            setAlert({ type: 'error', message: 'Error al cargar detalles' });
+        } catch (err) {
+            setAlert(handleApiError(err,  'Error al cargar detalles' ));
             setViewId(null);
         } finally {
             setViewLoading(false);
@@ -114,7 +115,8 @@ const Index = () => {
     return (
         <div className="container mx-auto p-6">
             <PageHeader title="Proyectos" icon={FolderIcon} buttonText="+ Nuevo" buttonLink="/proyecto/agregar" />
-            <AlertMessage type={alert?.type} message={alert?.message} onClose={() => setAlert(null)} />
+            
+            <AlertMessage type={alert?.type} message={alert?.message} details={alert?.details} onClose={() => setAlert(null)} />
             
             <Table 
                 columns={columns} 

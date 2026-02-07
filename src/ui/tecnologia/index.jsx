@@ -141,7 +141,7 @@ const Index = () => {
   return (
     <div className="container mx-auto p-6">
       <PageHeader title="Gestión de Tecnologías" icon={CpuChipIcon} buttonText="+ Nueva Tecnología" buttonLink="/tecnologia/agregar" />
-      <AlertMessage type={alert?.type} message={alert?.message} onClose={() => setAlert(null)} />
+      <AlertMessage type={alert?.type} message={alert?.message} details={alert?.details} onClose={() => setAlert(null)} />
       
       <Table
         columns={columns}
